@@ -1,7 +1,6 @@
-import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation } from '@nestjs/swagger';
 
-import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 
@@ -13,8 +12,7 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: 'Endpoint to sign in user with email and password' })
   @ApiBody({ type: AuthDto })
-  @UseGuards(LocalAuthGuard)
-  login(@Request() req) {
-    return this.authService.login(req.user);
+  async login(@Body() authDto: AuthDto) {
+    return await this.authService.login(authDto);
   }
 }

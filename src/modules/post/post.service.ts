@@ -11,7 +11,10 @@ export class PostService {
     private readonly postRepository: Repository<Post>,
   ) {}
 
-  async createPost(createPostDto: CreatePostDto, createdBy: string) {
+  async createPost(
+    createPostDto: CreatePostDto,
+    createdBy: string,
+  ): Promise<Post> {
     const post = this.postRepository.create({
       post: createPostDto.post,
       createdBy: createdBy,
