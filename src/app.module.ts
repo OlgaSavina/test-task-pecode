@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
+import { PostModule } from './modules/post/post.module';
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ dotenv.config();
   imports: [
     UserModule,
     AuthModule,
+    PostModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',

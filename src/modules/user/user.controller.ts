@@ -4,10 +4,15 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Param,
+  Get,
+  UseGuards
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { User } from './entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -23,5 +28,15 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   create(@Body() registerUserDto: RegisterUserDto) {
     return this.userService.register(registerUserDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Endpoint to get user by id',
+  })
+  @ApiBearerAuth()
+  async getUserById(@Param('id') id: string): Promise<User> {
+    return this.userService.getOneById(id);
   }
 }
