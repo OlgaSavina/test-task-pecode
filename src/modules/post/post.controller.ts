@@ -1,10 +1,16 @@
-import { Controller, Post, UseGuards, Request, Body,Get } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import { PostService } from "./post.service";
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Body,
+  Get,
+} from '@nestjs/common';
+import { ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { PostService } from './post.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Post as PostEnitity } from './entities/post.entity';
-import { CreatePostDto } from "./dto/create-post.dto";
-
+import { CreatePostDto } from './dto/create-post.dto';
 
 @Controller('posts')
 export class PostController {
@@ -18,7 +24,7 @@ export class PostController {
   @ApiBody({ type: CreatePostDto })
   @ApiBearerAuth()
   async createPost(@Request() req, @Body() createPostDto: CreatePostDto) {
-    const createdBy = req.user.id; 
+    const createdBy = req.user.id;
     return this.postService.createPost(createPostDto, createdBy);
   }
 

@@ -6,12 +6,17 @@ import {
   ValidationPipe,
   Param,
   Get,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { RegisterUserDto } from './dto/register-user.dto';
-import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from './entities/user.entity';
 
 @Controller('user')

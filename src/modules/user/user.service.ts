@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -53,18 +57,16 @@ export class UserService {
     }
   }
 
-  async getOneById (
-    id: string,
-  ) : Promise<User> {
+  async getOneById(id: string): Promise<User> {
     const user = await this.userRepository.findOne({ where: { id: id } });
     if (!user) {
       throw new NotFoundException('Not found');
     }
     return user;
-  } catch (error) {
+  }
+  catch(error) {
     throw error;
   }
-
 
   async findOneById(id: string): Promise<User> {
     try {
@@ -79,5 +81,4 @@ export class UserService {
       throw error;
     }
   }
-
 }
